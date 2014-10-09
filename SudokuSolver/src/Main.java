@@ -5,6 +5,10 @@ public class Main {
 	
 	int[][] grid = new int[9][9]; 
 
+	/**
+	 * 
+	 * @param sudoku - a 9 x 9 grid containing all known numbers in the grid.
+	 */
 	public Main(int[][] sudoku) {
 		super();
 		this.grid = sudoku;
@@ -12,7 +16,7 @@ public class Main {
 
 
 
-	private void solve() {
+	public void solve() {
 
 		boolean solved = false;
 		
