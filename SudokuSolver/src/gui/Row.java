@@ -58,5 +58,18 @@ public class Row extends JPanel{
 		
 		return data;
 	}
+
+	public void setData(int[] data) {
+		Component[] comps = this.getComponents();
+		for(int i = 0; i < 9; i++)
+		{
+			if(data[i] == 0)
+				((JTextField)comps[i]).setText("");
+			else{
+				((JTextField)comps[i]).setText("" + data[i]);
+			}
+		}
+		
+	}
 	
 }

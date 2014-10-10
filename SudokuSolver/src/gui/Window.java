@@ -52,10 +52,8 @@ public class Window extends JFrame{
 				try {
 					int[][] data = center.getData();
 					SudokuSolver solver = new SudokuSolver(data);
-					solver.printGrid();
-					System.out.println();
 					solver.solve();
-					solver.printGrid();
+					center.setData(solver.getGrid());
 					
 				} catch (IOException e1) {
 					e1.printStackTrace();

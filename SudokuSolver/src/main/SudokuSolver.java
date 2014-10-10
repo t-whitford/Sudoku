@@ -41,6 +41,8 @@ public class SudokuSolver {
 				}
 			}
 			
+			if(count > 500)
+				break;
 			solved = isGridSolved();
 		}
 		System.out.println("\n" + count);
@@ -179,6 +181,12 @@ public class SudokuSolver {
 			System.out.println();
 		}
 		
+	}
+
+
+	
+	public int[][] getGrid() {
+		return grid;
 	}
 	
 	

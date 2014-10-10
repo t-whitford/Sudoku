@@ -48,4 +48,14 @@ public class Grid extends JPanel{
 		return data;
 	}
 
+	public void setData(int[][] grid) {
+		
+		Component[] comps = this.getComponents();
+		for(int i = 0; i < 9; i++)
+		{
+			((Row) comps[i]).setData(grid[i]);
+		}
+		
+	}
+
 }
