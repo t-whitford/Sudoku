@@ -1,7 +1,3 @@
 # README #
 
-A small Sudoku solver.
-
-#To Do#
-
-The base methods are fully functional - it needs a simple GUI for interaction.
+A small Sudoku solver. Will solve simple problems. Needs additional work to solve "hard" and "evil" as found on [http://www.websudoku.com/](http://www.websudoku.com/) 
