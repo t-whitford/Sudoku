@@ -1,12 +1,8 @@
 package gui;
 import java.awt.Component;
-import java.awt.Container;
 import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 public class Grid extends JPanel{

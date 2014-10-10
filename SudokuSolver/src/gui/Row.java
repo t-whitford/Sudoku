@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Component;
-import java.awt.peer.ComponentPeer;
 import java.io.IOException;
 
 import javax.swing.JPanel;
@@ -48,6 +47,8 @@ public class Row extends JPanel{
 
 				else{
 					Integer integer = new Integer(in);
+					if(integer.intValue() < 1 || integer.intValue() > 9)
+						throw new NumberFormatException();
 					data[i] = integer.intValue();
 				}
 			} catch (NumberFormatException e) {

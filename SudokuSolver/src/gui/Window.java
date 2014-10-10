@@ -1,14 +1,13 @@
 package gui;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +18,9 @@ import main.SudokuSolver;
 
 public class Window extends JFrame{
 	
+	public JLabel errorLabel;
+	Grid center;
+	
 	public Window(){
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,18 +29,29 @@ public class Window extends JFrame{
 		setTitle("Simple Sudoku Solver");
 		
 		
+		
 		JPanel parentPanel = new JPanel(new BorderLayout(5, 5));
 		
 		JPanel top = new JPanel();
-		Grid center = new Grid();
+		BoxLayout box = new BoxLayout(top, BoxLayout.Y_AXIS);
+		top.setLayout(box);
+		
+		center = new Grid();
 		JPanel bottom = new JPanel();
 		
 		
 		//LABELS
 		JLabel label = new JLabel("Sudoku Solver");
 		label.setFont(label.getFont().deriveFont(24.0f));
+		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		top.add(label);
 		
+		errorLabel = new JLabel();
+		errorLabel.setForeground(Color.RED);
+		errorLabel.setText("");
+		errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		errorLabel.setPreferredSize(new Dimension(60, 20));
+		top.add(errorLabel);
 		
 		
 		//BUTTONS
@@ -52,11 +65,17 @@ public class Window extends JFrame{
 				try {
 					int[][] data = center.getData();
 					SudokuSolver solver = new SudokuSolver(data);
-					solver.solve();
-					center.setData(solver.getGrid());
+					boolean solved = solver.solve();
+					if(solved){
+						center.setData(solver.getGrid());
+						errorLabel.setText("");
+					}
+					else
+						setErrorMessage("Cannot Solve");
 					
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					setErrorMessage("Non-valid input");
 				}
 				
 			}
@@ -83,7 +102,7 @@ public class Window extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				center.clearAll();
+				clearAll();
 			}
 		});
 		
@@ -108,6 +127,20 @@ public class Window extends JFrame{
 		
 	}
 	
+
+	protected void clearAll() {
+
+		center.clearAll();
+		errorLabel.setText("");
+	}
+
+
+	protected void setErrorMessage(String error) {
+		
+		errorLabel.setText(error);
+		
+	}
+
 
 	public static void main(String[] args)
 	{

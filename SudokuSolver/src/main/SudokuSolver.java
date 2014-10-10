@@ -1,5 +1,4 @@
 package main;
-import java.util.Scanner;
 
 
 public class SudokuSolver {
@@ -19,7 +18,7 @@ public class SudokuSolver {
 	/**
 	 * Call to attempt to solve the provided sudoku. Will hang if impossible.
 	 */
-	public void solve() {
+	public boolean solve() {
 
 		int count = 0;
 		
@@ -41,11 +40,12 @@ public class SudokuSolver {
 				}
 			}
 			
-			if(count > 500)
-				break;
+			if(count > 50000)
+				return false; 
 			solved = isGridSolved();
 		}
 		System.out.println("\n" + count);
+		return true;
 		
 	}
 
@@ -189,39 +189,4 @@ public class SudokuSolver {
 		return grid;
 	}
 	
-	
-//	public static void main(String[] args) {
-//		System.out.println("Hello.");
-//		//Create grid
-//		int[][] sudoku = new int[9][9]; 
-//		
-//		Scanner input = new Scanner(System.in);
-//		
-//		
-//		for(int i = 0; i < 9; i++)
-//		{
-//			System.out.println("Please enter line " + (i+1) + " with a '-' in place of unknown numbers");
-//			//String in = input.next();
-//			String in = args[i];
-//			
-//			for(int j = 0; j < 9; j++)
-//			{
-//				int sq;
-//				char c = in.charAt(j);
-//				
-//				if(c != '-')
-//					sudoku[i][j]  = Character.getNumericValue(c);
-//				}
-//				
-//			}
-//			
-//		
-//		
-//		SudokuSolver s = new SudokuSolver(sudoku);
-//		
-//		s.printGrid();
-//		s.solve();
-//		System.out.println();
-//		s.printGrid();
-//	}
 }
