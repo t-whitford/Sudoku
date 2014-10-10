@@ -1,7 +1,5 @@
 # README #
 
-A small Sudoku solver.
+A small Sudoku solver. Will solve simple problems. Needs additional work to solve "hard" and "evil" as found on [http://www.websudoku.com/](http://www.websudoku.com/).
 
-#To Do#
-
-The base methods are fully functional - it needs a simple GUI for interaction.
+Includes a basic Swing GUI.
