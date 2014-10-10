@@ -2,7 +2,7 @@ package main;
 import java.util.Scanner;
 
 
-public class Main {
+public class SudokuSolver {
 	
 	int[][] grid = new int[9][9]; 
 
@@ -10,7 +10,7 @@ public class Main {
 	 * 
 	 * @param sudoku - a 9 x 9 grid containing all known numbers in the grid.
 	 */
-	public Main(int[][] sudoku) {
+	public SudokuSolver(int[][] sudoku) {
 		super();
 		this.grid = sudoku;
 	}
@@ -182,38 +182,38 @@ public class Main {
 	}
 	
 	
-	public static void main(String[] args) {
-		System.out.println("Hello.");
-		//Create grid
-		int[][] sudoku = new int[9][9]; 
-		
-		Scanner input = new Scanner(System.in);
-		
-		
-		for(int i = 0; i < 9; i++)
-		{
-			System.out.println("Please enter line " + (i+1) + " with a '-' in place of unknown numbers");
-			//String in = input.next();
-			String in = args[i];
-			
-			for(int j = 0; j < 9; j++)
-			{
-				int sq;
-				char c = in.charAt(j);
-				
-				if(c != '-')
-					sudoku[i][j]  = Character.getNumericValue(c);
-				}
-				
-			}
-			
-		
-		
-		Main s = new Main(sudoku);
-		
-		s.printGrid();
-		s.solve();
-		System.out.println();
-		s.printGrid();
-	}
+//	public static void main(String[] args) {
+//		System.out.println("Hello.");
+//		//Create grid
+//		int[][] sudoku = new int[9][9]; 
+//		
+//		Scanner input = new Scanner(System.in);
+//		
+//		
+//		for(int i = 0; i < 9; i++)
+//		{
+//			System.out.println("Please enter line " + (i+1) + " with a '-' in place of unknown numbers");
+//			//String in = input.next();
+//			String in = args[i];
+//			
+//			for(int j = 0; j < 9; j++)
+//			{
+//				int sq;
+//				char c = in.charAt(j);
+//				
+//				if(c != '-')
+//					sudoku[i][j]  = Character.getNumericValue(c);
+//				}
+//				
+//			}
+//			
+//		
+//		
+//		SudokuSolver s = new SudokuSolver(sudoku);
+//		
+//		s.printGrid();
+//		s.solve();
+//		System.out.println();
+//		s.printGrid();
+//	}
 }
