@@ -1,3 +1,4 @@
+package main;
 import java.util.Scanner;
 
 
@@ -15,9 +16,13 @@ public class Main {
 	}
 
 
-
+	/**
+	 * Call to attempt to solve the provided sudoku. Will hang if impossible.
+	 */
 	public void solve() {
 
+		int count = 0;
+		
 		boolean solved = false;
 		
 		while(!solved)
@@ -30,6 +35,7 @@ public class Main {
 					//System.out.println("Square: " + x +"," + y + " = " + grid[x][y]);
 					if(grid[x][y] == 0)
 					{
+						count++;
 						grid[x][y] = solveSquare(x, y);
 					}
 				}
@@ -37,9 +43,9 @@ public class Main {
 			
 			solved = isGridSolved();
 		}
+		System.out.println("\n" + count);
 		
 	}
-
 
 	private boolean isGridSolved() {
 		for(int[] row: grid)
@@ -52,8 +58,6 @@ public class Main {
 		}
 		return true;
 	}
-
-
 
 	private int solveSquare(int x, int y) {
 		for(int i = 1; i < 10; i++)
@@ -69,8 +73,6 @@ public class Main {
 		
 		return 0;
 	}
-
-
 
 	private boolean fitsElsewhere(int i, int x, int y) {
 		
@@ -114,7 +116,6 @@ public class Main {
 			return true;
 	}
 
-
 	private boolean isValid(int i, int x, int y)
 	{
 		if(grid[x][y] != 0)
@@ -154,8 +155,6 @@ public class Main {
 		return false;
 	}
 
-
-
 	private boolean inColumn(int i, int x, int y) {
 
 		for(int j = 0; j < 9; j++)
@@ -165,8 +164,6 @@ public class Main {
 		}
 		return false;
 	}
-
-
 
 	public void printGrid()
 	{
@@ -183,8 +180,6 @@ public class Main {
 		}
 		
 	}
-	
-	
 	
 	
 	public static void main(String[] args) {
