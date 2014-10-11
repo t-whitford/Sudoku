@@ -3,3 +3,8 @@
 A small Sudoku solver. Will solve any possible sudoku problem, even an empty grid.
 
 Includes a basic Swing GUI.
+
+
+# DOWNLOADS #
+
+[Runnable .jar file](https://bitbucket.org/twhitty/sudoku/downloads/SudokuSolver_ver_2_0.jar)
