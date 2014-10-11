@@ -19,6 +19,12 @@ public class SudokuSolver {
 	 */
 	public boolean solve()
 	{
+		//Check known inputs are valid - attempt to stop hanging
+		if(!checkUserInputs())
+			return false;
+		
+		
+		
 		//Always copy arrays!
 		int[][] newgrid = new int[9][9];
 		for(int a = 0; a < 9; a++)
@@ -40,7 +46,28 @@ public class SudokuSolver {
 		return false;
 	}
 	
-	
+	/**
+	 * Checks all the user inputs as to whether or not they break any rules in the current grid.
+	 * This does not guarantee the grid is solvable.
+	 * @return True if all user inputs are valid with current known grid.
+	 */
+	private boolean checkUserInputs() {
+		
+		for(int x = 0; x < 9; x++)
+		{
+			for(int y = 0; y < 9; y++)
+			{
+				if(grid[x][y] != 0)
+				{
+					boolean isValid = isValid(grid[x][y], x, y);
+					if(!isValid)
+						return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * Recursive method to brute-force the result.
 	 * 
@@ -63,6 +90,10 @@ public class SudokuSolver {
 			{
 				if(grid[x][y] == 0)
 				{
+					if(x == 0 && y == 0)
+					{
+						System.out.println(toString());
+					}
 					for(int i = 1; i < 10; i++)
 					{
 						if(isValid(i, x, y))
