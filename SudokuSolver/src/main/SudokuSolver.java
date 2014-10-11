@@ -3,10 +3,9 @@ package main;
 
 public class SudokuSolver {
 	
-	int[][] grid = new int[9][9]; 
+	private int[][] grid = new int[9][9]; 
 
 	/**
-	 * 
 	 * @param sudoku - a 9 x 9 grid containing all known numbers in the grid.
 	 */
 	public SudokuSolver(int[][] sudoku) {
@@ -14,110 +13,103 @@ public class SudokuSolver {
 		this.grid = sudoku;
 	}
 
+	/**
+	 * Solves the sudoku. Access it using .getGrid() 
+	 * @return True if the sudoku has been solved, false if it failed
+	 */
+	public boolean solve()
+	{
+		//Always copy arrays!
+		int[][] newgrid = new int[9][9];
+		for(int a = 0; a < 9; a++)
+			for(int b = 0; b < 9; b++)
+				newgrid[a][b] = grid[a][b];
+		
+		SudokuSolver temp = new SudokuSolver(newgrid);
+		
+		//Start recursive call
+		temp = temp.solveRecursively();
+		
+		//If !null return true - solved
+		if(temp != null)
+		{
+			grid = temp.getGrid();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * Recursive method to brute-force the result.
+	 * 
+	 * @return The completed object or null if cannot be found
+	 */
+	private SudokuSolver solveRecursively()
+	{		
+		//Find empty spot
+		//Find first valid number
+		//Add it call method again
+		//If returns null, try next number
+		//If returns object, result found - return object
+		
+		//Max depth < 90 - no memory worry.
+		
+		
+		for(int x = 0; x < 9; x++)
+		{
+			for(int y = 0; y < 9; y++)
+			{
+				if(grid[x][y] == 0)
+				{
+					for(int i = 1; i < 10; i++)
+					{
+						if(isValid(i, x, y))
+						{
+							//Create array copy
+							int[][] newgrid = new int[9][9];
+							for(int a = 0; a < 9; a++)
+								for(int b = 0; b < 9; b++)
+									newgrid[a][b] = grid[a][b];
+							
+							SudokuSolver newSolver = new SudokuSolver(newgrid);
+							newSolver.add(i, x, y);
+							newSolver = newSolver.solveRecursively();
+							if(newSolver != null)
+								return newSolver;
+						}
+					}
+					return null;
+				}
+				//First return
+				if(x == 8 && y == 8)
+					return this;
+			}
+		}
+		return null;
+	}
+	
 
 	/**
-	 * Call to attempt to solve the provided sudoku. Will hang if impossible.
+	 * Utility class to add a single number to the grid.
+	 * @param i The number to add
+	 * @param x x position in the grid
+	 * @param y y position in the grid
 	 */
-	public boolean solve() {
+	private void add(int i, int x, int y) {
 
-		int count = 0;
-		
-		boolean solved = false;
-		
-		while(!solved)
-		{
-			//For each square, try solve
-			for(int x = 0; x < 9; x++)
-			{
-				for(int y = 0; y < 9; y++)
-				{
-					//System.out.println("Square: " + x +"," + y + " = " + grid[x][y]);
-					if(grid[x][y] == 0)
-					{
-						count++;
-						grid[x][y] = solveSquare(x, y);
-					}
-				}
-			}
-			
-			if(count > 50000)
-				return false; 
-			solved = isGridSolved();
-		}
-		System.out.println("\n" + count);
-		return true;
+		grid[x][y] = i;
 		
 	}
 
-	private boolean isGridSolved() {
-		for(int[] row: grid)
-		{
-			for(int i: row)
-			{
-				if(i == 0)
-					return false;
-			}
-		}
-		return true;
-	}
-
-	private int solveSquare(int x, int y) {
-		for(int i = 1; i < 10; i++)
-		{
-			if(isValid(i, x, y))
-			{
-				if(!fitsElsewhere(i, x, y))
-				{
-					return i;
-				}
-			}
-		}
-		
-		return 0;
-	}
-
-	private boolean fitsElsewhere(int i, int x, int y) {
-		
-		boolean fitsSomewhereInRow = false;
-		boolean fitsColumn = false;
-		boolean fitsGrid = false;
-		
-		for(int j = 0; j < 9; j++)
-		{
-			if(j != y)
-			{
-				if(isValid(i, x, j))
-					fitsSomewhereInRow = true;
-			}
-		}
-		
-		for(int j = 0; j < 9; j++)
-		{
-			if(j != x)
-			{
-				if(isValid(i, j, y))
-					fitsColumn = true;
-			}
-		}
-		
-		for(int j = (x / 3) * 3 ; j < (x/ 3) *3 + 3; j++)
-		{
-			for(int k = (y / 3) * 3; k < (y /3) *3 + 3; k++)
-			{
-				if(j != x || k != y)
-				{
-					if(isValid(i, j, k))
-						fitsGrid = true;
-				}
-			}
-		}
-		
-		if(!fitsSomewhereInRow || !fitsColumn || !fitsGrid)
-			return false;
-		else
-			return true;
-	}
-
+	/**
+	 * 
+	 * @param i Number to check
+	 * @param x x position
+	 * @param y y position
+	 * @return false if i already is in the line, column or 3x3 grid. True otherwise 
+	 */
 	private boolean isValid(int i, int x, int y)
 	{
 		if(grid[x][y] != 0)
@@ -127,6 +119,13 @@ public class SudokuSolver {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param i Number to check
+	 * @param x x position
+	 * @param y y position
+	 * @return Whether i already exists in the row
+	 */
 	private boolean inRow(int i, int x, int y) {
 		
 		for(int j = 0; j < 9; j++)
@@ -139,6 +138,13 @@ public class SudokuSolver {
 		
 	}
 
+	/**
+	 * 
+	 * @param i Number to check
+	 * @param x x position
+	 * @param y y position
+	 * @return Whether i already is in the grid
+	 */
 	private boolean inGrid(int i, int x, int y) {
 
 		int gridX = x / 3;
@@ -157,6 +163,13 @@ public class SudokuSolver {
 		return false;
 	}
 
+	/**
+	 * 
+ 	 * @param i Number to check
+	 * @param x x position
+	 * @param y y position @return
+	 * @return Whether i already exists in the column
+	 */
 	private boolean inColumn(int i, int x, int y) {
 
 		for(int j = 0; j < 9; j++)
@@ -169,24 +182,34 @@ public class SudokuSolver {
 
 	public void printGrid()
 	{
+		System.out.println(toString());
+	}
+
+	/**
+	 * Converts the grid into a readable string (Lines of 9)
+	 */
+	@Override
+	public String toString()
+	{
+		String string = "";
 		for(int[] row: grid)
 		{
 			for(int num: row)
 			{
 				if(num == 0)
-					System.out.print("- ");
+					string = string + ("- ");
 				else
-					System.out.print(num + " ");
+					string = string + (num + " ");
 			}
-			System.out.println();
+			string = string + "\n"; 
 		}
-		
+		return string;
 	}
-
-
 	
+	/**
+	 * @return The grid in it's current state
+	 */
 	public int[][] getGrid() {
 		return grid;
 	}
-	
 }
