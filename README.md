@@ -7,9 +7,9 @@ Includes a basic Swing GUI.
 
 # DOWNLOADS #
 
-[Runnable .jar file](https://bitbucket.org/twhitty/sudoku/downloads/SudokuSolver_ver_2_0.jar)
+[Runnable .jar file](https://bitbucket.org/twhitty/sudoku/downloads/SudokuSolver_ver_2_1.jar)
 
 
 # Current Issues #
 
-* May hang if the grid is impossible to solve - still tries all possible combinations. 
+* May hang if the grid is impossible to solve - still tries all possible combinations.
