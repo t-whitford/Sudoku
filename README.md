@@ -12,4 +12,4 @@ Includes a basic Swing GUI.
 
 # Current Issues #
 
-* Will hang if a number is added in a non-valid space by the user.
+* May hang if the grid is impossible to solve - still tries all possible combinations. 
