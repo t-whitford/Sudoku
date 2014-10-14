@@ -22,8 +22,7 @@ public class SudokuSolver {
 		//Check known inputs are valid - attempt to stop hanging
 		if(!checkUserInputs())
 			return false;
-		
-		
+
 		
 		//Always copy arrays!
 		int[][] newgrid = new int[9][9];
@@ -90,10 +89,6 @@ public class SudokuSolver {
 			{
 				if(grid[x][y] == 0)
 				{
-					if(x == 0 && y == 0)
-					{
-						System.out.println(toString());
-					}
 					for(int i = 1; i < 10; i++)
 					{
 						if(isValid(i, x, y))
@@ -121,7 +116,6 @@ public class SudokuSolver {
 		return null;
 	}
 	
-
 	/**
 	 * Utility class to add a single number to the grid.
 	 * @param i The number to add
@@ -143,8 +137,8 @@ public class SudokuSolver {
 	 */
 	private boolean isValid(int i, int x, int y)
 	{
-		if(grid[x][y] != 0)
-			return false;
+//		if(grid[x][y] != 0)
+//			return false;
 		if(inRow(i, x, y) || inGrid(i, x, y) || inColumn(i, x, y))
 			return false;
 		return true;
